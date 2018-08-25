@@ -21,3 +21,4 @@ android/.gradle/
 android/app/
 android/build/
 receipts*.json
+src/constants.js
