@@ -14,7 +14,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "jest",
-    "server": "node src/server.js"
+    "server": "node src/server.js",
+    "dev": "react-native run-android && nodemon src/server.js"
   },
   "jest": {
     "preset": "react-native"
