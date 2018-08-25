@@ -20,6 +20,7 @@
     "preset": "react-native"
   },
   "dependencies": {
+    "@google-cloud/vision": "^0.21.0",
     "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",
     "express": "^4.16.3",

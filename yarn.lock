@@ -562,7 +562,7 @@
     string-format-obj "^1.1.0"
     through2 "^2.0.3"
 
-"@google-cloud/common@^0.20.3":
+"@google-cloud/common@^0.20.1", "@google-cloud/common@^0.20.3":
   version "0.20.3"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.20.3.tgz#639fb9ed07b0e20bdcfa84ebb0838b8cb2068e3b"
   dependencies:
@@ -623,6 +623,16 @@
     stream-events "^1.0.1"
     through2 "^2.0.0"
     xdg-basedir "^3.0.0"
+
+"@google-cloud/vision@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/vision/-/vision-0.21.0.tgz#07fe3be614e597978fe6224bf989aa5d78216149"
+  dependencies:
+    "@google-cloud/common" "^0.20.1"
+    google-gax "^0.17.1"
+    is "^3.2.1"
+    lodash.merge "^4.6.1"
+    protobufjs "^6.8.6"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
