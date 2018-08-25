@@ -1,19 +1,38 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import './stdlib/lib';
 
-const test = search => fetch(`${baseUrl.API_URL}/hotels/search/${search}`, {
-  method: 'GET',
-  headers: {
-    Accept: 'application/json',
-  },
-});
 export default class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state ={ res: "None"};
+    this.loadData = this.loadData.bind(this);
+  }
+
+
+  loadData = () => {
+    fetch('http://10.0.2.2:8080/test')
+    .then(function(response) {
+      // console.log(response.body)
+      return response.json();
+    })
+    .then((myJson) => {
+      console.log(myJson.zheng)
+      console.log(JSON.stringify(myJson.zheng));
+      this.setState({ res: JSON.stringify(myJson.zheng) });
+    })
+    .catch((error) =>{
+      console.error(error);
+    });
+  }
+  componentDidMount(){
+    this.loadData();
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up Zheng.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <Text>{this.state.res}</Text>
       </View>
     );
   }

@@ -23,7 +23,6 @@ app.get('/test', function(req, res){
   client
     .textDetection(fileName)
     .then(results => {
-      
       const detections = results[0].textAnnotations;
       console.log('Text:', detections.length);
       let i = 0;
@@ -44,7 +43,7 @@ app.get('/test', function(req, res){
         
         console.log(Y_average/4);
       }
-      res.send(string);
+      res.send({ zheng: string });
       console.log(detections[0].boundingPoly);
       // detections.forEach(text => {
       //   console.log(text);
