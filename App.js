@@ -1,3 +1,6 @@
+// //Camera component
+import Camera from 'react-native-camera';
+
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -11,10 +14,22 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up Bruce.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
       </View>
+
+     <Camera 
+        ref={cam => {
+        this.camera = cam;
+        }}
+        style={styles.preview}
+        aspect={Camera.constants.Aspect.fill}
+      >
+        <Text style={styles.capture} onPress={this.takePicture.bind(this)}>
+          [CAPTURE]
+        </Text>
+      </Camera>
+
     );
   }
 }
@@ -27,3 +42,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+

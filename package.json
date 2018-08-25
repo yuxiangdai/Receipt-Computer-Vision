@@ -7,6 +7,8 @@
     "jest": "^23.5.0",
     "jest-react-native": "^18.0.0",
     "nodemon": "^1.18.3",
+    "jest-expo": "~27.0.0",
+    "react-native-scripts": "^1.14.1",
     "react-test-renderer": "16.3.1"
   },
   "scripts": {
@@ -26,6 +28,7 @@
     "express-firebase-middleware": "^2.0.0",
     "express": "^4.16.3",
     "react": "16.3.1",
-    "react-native": "~0.55.2"
+    "react-native": "^0.56.0",
+    "react-native-camera": "^1.2.0"
   }
 }
