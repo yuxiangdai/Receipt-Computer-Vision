@@ -34,25 +34,10 @@ class ListScreen extends React.Component {
   };
 
   render() {
-
-    // let data = [
-    //   {piece: 'Beef', price: 1.00},
-    //   {piece: 'Salmon', price: 5.36},
-    //   {piece: 'Mango Juice', price: 3.21},
-    //   {piece: 'Beer', price: 100.00}
-    // ];
-
     return (
-      //<View>
-        /* <View style = {styles.container}>
-          <Text>List Screen</Text>
-        </View> */
-          
-        <View style={{flex: 1, 
-                      alignItems: 'center', 
-                      justifyContent: 'flex-start',
-                      width: 500, height: 500
-                      }}>
+        <View style={styles.container}>
+          <Text>Grocery List</Text>
+          <Text>           </Text>
           <FlatList
             data={[
               {piece: 'Beef', price: 1.00},
@@ -60,27 +45,11 @@ class ListScreen extends React.Component {
               {piece: 'Mango Juice', price: 3.21},
               {piece: 'Beer', price: 100.00}
             ]}
-            renderItem={({item}) => <Text style={styles.item}>{item.piece}</Text>}
+            renderItem={({item}) => <Text>{item.piece} -- $ {item.price}</Text>
+            }
           /> 
 
         </View>
-
-
-      //</View>
-        
-        /* <View style = {styles.pricecontainer}>
-          <FlatList
-            data={[
-              {piece: 'Beef', price: 1.00},
-              {piece: 'Salmon', price: 5.36},
-              {piece: 'Mango Juice', price: 3.21},
-              {piece: 'Beer', price: 100.00}
-            ]}
-            renderItem={({item}) => <Text style={styles.item}> -- $ {item.price}</Text>}
-          /> 
-        </View> */
-
-      //</View> 
   
     );
   }
@@ -128,13 +97,14 @@ class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: '50%',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo:{
-    height:100,
-    width:100
+    height:150,
+    width:150
     }
 });
 
@@ -152,6 +122,6 @@ const RootStack = createBottomTabNavigator(
 
 export default class App extends React.Component {
   render() {
-    return <RootStack />;
+    return <RootStack/>;
   }
 }
