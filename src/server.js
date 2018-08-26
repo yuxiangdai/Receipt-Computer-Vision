@@ -18,7 +18,7 @@ app.get('/test', function(req, res){
   const vision = require('@google-cloud/vision');
 
   const client = new vision.ImageAnnotatorClient();
-  const fileName = process.env.PWD + '/longos1.jpg';
+  const fileName = './longos1.jpg';
   
   client
     .textDetection(fileName)
@@ -29,8 +29,6 @@ app.get('/test', function(req, res){
 
       for(let i = 1; i < detections.length; i++){
         const text = detections[i];
-        //console.log("OUTRESULTS:" + resultString);
-        // console.log(text);
 
         const verticies = text.boundingPoly.vertices;
         const description = text.description;
@@ -58,7 +56,6 @@ app.get('/test', function(req, res){
           averageY,
           averageX
         }])
-        console.log(description, topSlope, topDeltaX, topDeltaY, "______", verticies);
       }
       for(let i = 0; i < setArray.length; i++){
         if(setArray[i] != null){
@@ -80,16 +77,13 @@ app.get('/test', function(req, res){
       let stringArray = [];
       for(let i = 0; i < resultsArray.length; i++){
         let line = resultsArray[i];
-        //console.log("B____________", line);
         line.sort(function(a,b){return a.averageX - b.averageX})
-        //console.log("after__________", line);
         let resultline = "";
         let smallest = 0;
         for(let k = 0; k <line.length; k++){
           resultline += ` ${line[k].description}`;
         }
         stringArray.push(resultline);
-        console.log(resultline);
       }
 
       const Bannedlist = ["discount", "save", "/kg", "/$"];
@@ -110,7 +104,6 @@ app.get('/test', function(req, res){
             }
             if(linecheck){
               let linesplit = stringArray[i].split("$");
-              console.log(stringArray[i]);
               if (linesplit.length == 2 && linesplit[0].length > 2) {
                 outputResult.push({product: linesplit[0], price: linesplit[1].replace(/[^0-9.]+/g, '')});
               }
@@ -127,6 +120,29 @@ app.get('/test', function(req, res){
     });
     
 });
+
+function checkContain(check, line){
+  if (line.indexOf(check) != -1){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+function checkoutForCross(origin, target){
+  const slack = 0;
+  if ((origin.topSlope * target.averageX + origin.topDisplacement) - slack < target.averageY &&
+      (origin.bottomSlope * target.averageX + origin.bottomDisplacement) + slack > target.averageY &&
+      (target.topSlope * origin.averageX + target.topDisplacement) - slack < origin.averageY &&
+      (target.bottomSlope * origin.averageX + target.bottomDisplacement) + slack > origin.averageY)
+      {
+        return true;
+      }
+  else{
+    return false;
+  }
+}
 
 app.listen(port, host);
 
