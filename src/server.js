@@ -18,7 +18,8 @@ app.get('/test', function(req, res){
   const vision = require('@google-cloud/vision');
 
   const client = new vision.ImageAnnotatorClient();
-  const fileName = process.env.PWD + '/longos1.jpg';
+
+  var fileName = process.env.PWD + '/longos1.jpg';
   
   client
     .textDetection(fileName)
@@ -33,7 +34,7 @@ app.get('/test', function(req, res){
         string += text.description
         //console.log("OUTRESULTS:" + resultString);
         // console.log(text);
-        console.log(text.boundingPoly);
+        // console.log(text.boundingPoly);
 
         const verticies = text.boundingPoly.vertices;
         let Y_average = 0
@@ -41,10 +42,10 @@ app.get('/test', function(req, res){
           Y_average += verticies[j].y;
         }
         
-        console.log(Y_average/4);
+        // console.log(Y_average/4);
       }
       res.send({ zheng: string });
-      console.log(detections[0].boundingPoly);
+      console.log("request made");
       // detections.forEach(text => {
       //   console.log(text);
       //   console.log(text.description);

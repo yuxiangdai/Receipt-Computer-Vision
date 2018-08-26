@@ -14,3 +14,6 @@ firebase.initializeApp(config);
 
 export const database = firebase.database();
 export const storage = firebase.storage();
+
+var storageRef = storage.ref();
+var imageRef = storageRef.child('images/mountains.jpg');

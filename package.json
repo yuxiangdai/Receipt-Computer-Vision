@@ -31,7 +31,10 @@
     "google-gax": "^0.19.0",
     "react": "16.3.1",
     "react-native": "~0.55.2",
-    "react-navigation": "^2.12.1"
+    "react-native-camera": "^1.2.0",
+    "react-native-image-picker": "^0.26.10",
+    "react-navigation": "^2.12.1",
+    "rn-fetch-blob": "^0.10.13"
   },
   "proxy": "http://localhost:8080"
 }
