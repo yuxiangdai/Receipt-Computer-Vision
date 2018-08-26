@@ -22,3 +22,5 @@ android/app/
 android/build/
 receipts*.json
 src/constants.js
+Authkey.json
+credentials.json

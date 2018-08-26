@@ -10,10 +10,7 @@ const config = {
   messagingSenderId: c.FIREBASE_MESSAGING_SENDER_ID
 };
 
-firebase.initializeApp(config);
+const firebaseApp = firebase.initializeApp(config);
 
-export const database = firebase.database();
-export const storage = firebase.storage();
+export default firebaseApp;
 
-var storageRef = storage.ref();
-var imageRef = storageRef.child('images/mountains.jpg');

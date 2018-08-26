@@ -14,9 +14,13 @@ const host = process.env.APP_HOST || '127.0.0.1';
 const router = require('./routes');
 app.use('/', router);
 
+app.post('/asdf', function(req,res){
+  console.log(req);
+})
+
 app.get('/test', function(req, res){
   const vision = require('@google-cloud/vision');
-
+  
   const client = new vision.ImageAnnotatorClient();
 
   var fileName = process.env.PWD + '/longos1.jpg';

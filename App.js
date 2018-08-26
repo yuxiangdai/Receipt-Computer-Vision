@@ -3,6 +3,8 @@ import React from 'react';
 import { createStackNavigator, SafeAreaView, createBottomTabNavigator} from 'react-navigation';
 import { RNCamera } from 'react-native-camera';
 import RNFetchBlob from 'rn-fetch-blob'
+//import FirebaseClient from 'FirebaseClient';
+var ImagePicker = require('react-native-image-picker');
 
 import {
   Button,
@@ -15,53 +17,42 @@ import {
   Image,
 } from 'react-native';
 
-const Blob = RNFetchBlob.polyfill.Blob;
-const fs = RNFetchBlob.fs;
+// const Blob = RNFetchBlob.polyfill.Blob;
+// const fs = RNFetchBlob.fs;
 // window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 // window.Blob = Blob;
 
-var ImagePicker = require('react-native-image-picker');
-var firebase = require("firebase");
-var c = require("./src/constants");
+// var ImagePicker = require('react-native-image-picker');
+// // var firebase = require("firebase");
 
-const config = {
-  apiKey: c.FIREBASE_API_KEY,
-  authDomain: c.FIREBASE_AUTH_DOMAIN,
-  databaseURL: c.FIREBASE_DATABASE_URL,
-  projectId: c.FIREBASE_PROJECT_ID,
-  storageBucket: c.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: c.FIREBASE_MESSAGING_SENDER_ID
-};
+// function uploadImage(uri, mime = 'application/octet-stream') {
+//   return new Promise((resolve, reject) => {
+//     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+//     let uploadBlob = null
 
-firebase.initializeApp(config);
+//     const imageRef = FirebaseClient.storage().ref('images').child('image_001')
 
-function uploadImage(path) {
-  const imageFile = RNFetchBlob.wrap(path);
-  
-  // 'path/to/image' is where you wish to put your image in
-  // the database, if you would like to put it in the folder
-  // 'subfolder' inside 'mainFolder' and name it 'myImage', just 
-  // replace it with 'mainFolder/subfolder/myImage'
-  const ref = firebase.storage().ref('image');
-  var uploadBlob = null;
+//     fs.readFile(uploadUri, 'base64')
+//       .then((data) => {
+//         return Blob.build(data, { type: `${mime};BASE64` })
+//       })
+//       .then((blob) => {
+//         uploadBlob = blob
+//         return imageRef.put(blob, { contentType: mime })
+//       })
+//       .then(() => {
+//         uploadBlob.close()
+//         return imageRef.getDownloadURL()
+//       })
+//       .then((url) => {
+//         resolve(url)
+//       })
+//       .catch((error) => {
+//         reject(error)
+//     })
+//   })
+// }
 
-  Blob.build(imageFile, { type: 'image/jpg;' })
-      .then((imageBlob) => {
-          uploadBlob = imageBlob;
-          return ref.put(imageBlob, { contentType: 'image/jpg' });
-      })
-      .then(() => {
-          uploadBlob.close();
-          return ref.getDownloadURL();
-      })
-      .then((url) => {
-        console.log(url)
-          // do something with the url if you wish to
-      })
-      .catch((error) => {
-          alert(error.message)
-      });
-}
 
 class ImagesScreen extends React.Component {
   state = {avatarSource: null}
@@ -72,7 +63,8 @@ class ImagesScreen extends React.Component {
       maxWidth: 500,
       maxHeight: 500,
       storageOptions: {
-        skipBackup: true
+        skipBackup: true,
+        path: 'images'
       }
     };
 
@@ -90,15 +82,29 @@ class ImagesScreen extends React.Component {
       }
       else {
         let source = { uri: response.uri };
+        //github.com/dailydrip/react-native-firebase-storage.git
+        var data = new FormData();  
+        data.append('my_photo', {  
+          uri: String(response.uri), // your file path string
+          name: 'my_photo.jpg',
+          type: 'image/jpg'
+        });
 
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-        console.log(source)
+          fetch('http://127.0.0.1:8080/asdf', {  
+            method: 'POST',
+            body: data,
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'multipart/form-data'
+            }
+            }).catch((e)=> {
+              console.log("error", e);
+            });
+        
+        // uploadImage(response.uri);
         this.setState({
           avatarSource: source
         });
-        
-        uploadImage(response.uri);
       }
     });
   }
@@ -113,7 +119,8 @@ class ImagesScreen extends React.Component {
           </View>
         </TouchableOpacity>
         <Text> {this.state.avatarSource === null ? <Text>zhengli</Text> : this.state.avatarSource.uri } </Text>  
-        <Text> {this.state.res } </Text>  
+        <Text> {this.state.res } </Text>
+        <Text> {this.state.res } </Text>   
       </View>
     );
   }
