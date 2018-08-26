@@ -12,12 +12,16 @@ class ImagesScreen extends React.Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Details Screen</Text>
         <Button
-          title="Go to Home"
+          title="Home"
           onPress={() => this.props.navigation.navigate('Home')}
         />
         <Button
           title="List"
           onPress={() => this.props.navigation.navigate('List')}
+        />
+        <Button
+          title="Images"
+          onPress={() => this.props.navigation.navigate('Images')}
         />
       </View>
     );
@@ -34,11 +38,15 @@ class ListScreen extends React.Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>List Screen</Text>
         <Button
-          title="Go to Home"
+          title="Home"
           onPress={() => this.props.navigation.navigate('Home')}
         />
         <Button
-          title="Go to Images"
+          title="List"
+          onPress={() => this.props.navigation.navigate('List')}
+        />
+        <Button
+          title="Images"
           onPress={() => this.props.navigation.navigate('Images')}
         />
       </View>
@@ -78,11 +86,15 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
         <Text>Home Screen</Text>
         <Button
-          title="Go to List"
+          title="Home"
+          onPress={() => this.props.navigation.navigate('Home')}
+        />
+        <Button
+          title="List"
           onPress={() => this.props.navigation.navigate('List')}
         />
         <Button
-          title="Go to Images"
+          title="Images"
           onPress={() => this.props.navigation.navigate('Images')}
         />
         <Text>{this.state.res}</Text>
