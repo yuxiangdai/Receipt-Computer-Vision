@@ -211,6 +211,7 @@ function detectText(fileName) {
       const detections = results[0].textAnnotations;
       const PageBound = detections[0].boundingPoly;
       let setArray = [];
+
       for(let i = 1; i < detections.length; i++){
         const text = detections[i];
         //console.log("OUTRESULTS:" + resultString);
@@ -242,8 +243,8 @@ function detectText(fileName) {
           averageY,
           averageX
         }])
+        console.log(description, topSlope, topDeltaX, topDeltaY, "______", verticies);
       }
-      console.log(setArray);
       for(let i = 0; i < setArray.length; i++){
         if(setArray[i] != null){
           for(let k = i + 1; k < setArray.length; k++){
@@ -295,7 +296,7 @@ function detectText(fileName) {
             if(linecheck){
               let linesplit = stringArray[i].split("$");
               console.log(stringArray[i]);
-              if (linesplit.length == 2) {
+              if (linesplit.length == 2 && linesplit[0].length > 2) {
                 outputResult.push({product: linesplit[0], price: linesplit[1].replace(/[^0-9.]+/g, '')});
               }
             }
