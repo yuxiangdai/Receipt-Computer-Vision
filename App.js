@@ -63,7 +63,7 @@ class ImagesScreen2 extends React.Component {
           }
           </View>
         </TouchableOpacity>
-        
+        <Text> {this.state.avatarSource === null ? <Text>zhengli</Text> : this.state.avatarSource.uri } </Text>  
       </View>
     );
   }
@@ -219,7 +219,8 @@ class HomeScreen extends React.Component {
 
 
   loadData = () => {
-    fetch('http://10.0.2.2:8080/test')
+    fetch('http://127.0.0.1:8080/test')
+    // fetch('http://10.254.194.2:8080/test')
     .then(function(response) {
       // console.log(response.body)
       return response.json();
