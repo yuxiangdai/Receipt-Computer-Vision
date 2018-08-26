@@ -37,7 +37,7 @@ firebase.initializeApp(config);
 
 function uploadImage(path) {
   const imageFile = RNFetchBlob.wrap(path);
-
+  
   // 'path/to/image' is where you wish to put your image in
   // the database, if you would like to put it in the folder
   // 'subfolder' inside 'mainFolder' and name it 'myImage', just 
@@ -59,29 +59,12 @@ function uploadImage(path) {
           // do something with the url if you wish to
       })
       .catch((error) => {
-          console.log(error)
+          alert(error.message)
       });
 }
 
-class ImagesScreen2 extends React.Component {
+class ImagesScreen extends React.Component {
   state = {avatarSource: null}
-
-  loadData = (uri) => {
-    fetch('http://127.0.0.1:8080/test?file=' + uri)
-    // fetch('http://10.254.194.2:8080/test')
-    .then(function(response) {
-      // console.log(response.body)
-      return response.json();
-    })
-    .then((myJson) => {
-      console.log(myJson.zheng)
-      console.log(JSON.stringify(myJson.zheng));
-      this.setState({ res: JSON.stringify(myJson.zheng) });
-    })
-    .catch((error) =>{
-      console.error(error);
-    });
-  }
 
   selectPhotoTapped() {
     const options = {
@@ -114,11 +97,8 @@ class ImagesScreen2 extends React.Component {
         this.setState({
           avatarSource: source
         });
-        this.loadData(response.uri)
-        // uploadImage(response.uri);
-        // ref.putString(message, 'data_url').then(function(snapshot) {
-        //   console.log('Uploaded a data_url string!');
-        // });
+        
+        uploadImage(response.uri);
       }
     });
   }
@@ -240,7 +220,7 @@ const RootStack = createBottomTabNavigator(
   {
     Home: HomeScreen,
     List: ListScreen,
-    Images: ImagesScreen2,
+    Images: ImagesScreen,
   },
   {
     initialRouteName: 'Home',
