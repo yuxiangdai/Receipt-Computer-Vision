@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Button, StatusBar, StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import { createStackNavigator, SafeAreaView, createBottomTabNavigator} from 'react-navigation';
 
 class ImagesScreen extends React.Component {
@@ -34,22 +34,54 @@ class ListScreen extends React.Component {
   };
 
   render() {
+
+    // let data = [
+    //   {piece: 'Beef', price: 1.00},
+    //   {piece: 'Salmon', price: 5.36},
+    //   {piece: 'Mango Juice', price: 3.21},
+    //   {piece: 'Beer', price: 100.00}
+    // ];
+
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>List Screen</Text>
-        <Button
-          title="Home"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
-        <Button
-          title="List"
-          onPress={() => this.props.navigation.navigate('List')}
-        />
-        <Button
-          title="Images"
-          onPress={() => this.props.navigation.navigate('Images')}
-        />
-      </View>
+      //<View>
+        /* <View style = {styles.container}>
+          <Text>List Screen</Text>
+        </View> */
+          
+        <View style={{flex: 1, 
+                      alignItems: 'center', 
+                      justifyContent: 'flex-start',
+                      width: 500, height: 500
+                      }}>
+          <FlatList
+            data={[
+              {piece: 'Beef', price: 1.00},
+              {piece: 'Salmon', price: 5.36},
+              {piece: 'Mango Juice', price: 3.21},
+              {piece: 'Beer', price: 100.00}
+            ]}
+            renderItem={({item}) => <Text style={styles.item}>{item.piece}</Text>}
+          /> 
+
+        </View>
+
+
+      //</View>
+        
+        /* <View style = {styles.pricecontainer}>
+          <FlatList
+            data={[
+              {piece: 'Beef', price: 1.00},
+              {piece: 'Salmon', price: 5.36},
+              {piece: 'Mango Juice', price: 3.21},
+              {piece: 'Beer', price: 100.00}
+            ]}
+            renderItem={({item}) => <Text style={styles.item}> -- $ {item.price}</Text>}
+          /> 
+        </View> */
+
+      //</View> 
+  
     );
   }
 }
@@ -57,10 +89,9 @@ class ListScreen extends React.Component {
 class HomeScreen extends React.Component {
   constructor(props){
     super(props);
-    this.state ={ res: "None"};
+    this.state ={ res: null};
     this.loadData = this.loadData.bind(this);
   }
-
 
   loadData = () => {
     fetch('http://10.0.2.2:8080/test')
@@ -84,24 +115,15 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Home Screen</Text>
-        <Button
-          title="Home"
-          onPress={() => this.props.navigation.navigate('Home')}
+        <Image style={styles.logo}
+          source={require('./logo.png')}
         />
-        <Button
-          title="List"
-          onPress={() => this.props.navigation.navigate('List')}
-        />
-        <Button
-          title="Images"
-          onPress={() => this.props.navigation.navigate('Images')}
-        />
-        <Text>{this.state.res}</Text>
+        {this.state.res ? <Text>{this.state.res}</Text> : null}
       </View>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -110,6 +132,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logo:{
+    height:100,
+    width:100
+    }
 });
 
 

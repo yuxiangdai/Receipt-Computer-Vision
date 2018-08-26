@@ -15,6 +15,7 @@
     "ios": "react-native run-ios",
     "server": "node src/server.js",
     "dev": "react-native run-android && nodemon src/server.js",
+    "apple": "react-native run-ios && nodemon src/server.js",
     "test": "react-native log-android && nodemon src/server.js"
   },
   "jest": {
